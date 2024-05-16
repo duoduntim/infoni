@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Image Search</title>
+</head>
+<body>
+    <h1>Real-Time Image Search</h1>
+    <div id="image-container"></div>
+
+    <script>
+        const apiKey = 'sroE8rhsLUFLYLUqrtK2rjRrCxaRTJv9';
+        const apiUrl = 'https://api.nytimes.com/svc/search/v2/home.json';
+
+        // Function to fetch news articles from New York Times API
+        async function fetchNewsArticles(query) {
+            const url = `${apiUrl}?q=${query}&api-key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.response.docs;
+        }
+
+        // Function to extract images from news articles
+        function extractImages(articles) {
+            const images = [];
+            articles.forEach(article => {
+                if (article.multimedia && article.multimedia.length > 0) {
+                    const imageUrl = `https://www.nytimes.com/${article.multimedia[0].url}`;
+                    images.push(imageUrl);
+                }
+            });
+            return images;
+        }
+
+        // Function to display images
+        function displayImages(images) {
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = '';
+            images.forEach(imageUrl => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = 'News Image';
+                imageContainer.appendChild(img);
+            });
+        }
+
+        // Example usage
+        const query = ''; // Example search query
+        fetchNewsArticles(query)
+            .then(articles => {
+                const images = extractImages(articles);
+                displayImages(images);
+            })
+            .catch(error => console.error('Error fetching news articles:', error));
+    </script>
+</body>
+</html>

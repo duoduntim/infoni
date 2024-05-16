@@ -1,0 +1,11 @@
+SUBPLOTING IN MATLAB 
+This are the various steps to subplot in matlab 
+
+first declare your figure using "figure(5) .Nb:The five just stands for an imaginary number selected by you.
+
+
+for a line graph use the ff
+-----------------------------
+Nb:The first 2 and three means the number of rows and columns for the figure above ;
+subplot(2,3,1):This shows that for a plot the dimensions are 2 3 and the position is at the first ie. The (1)
+subplot(2,3,1),plot(x^2+3x+4):This is for a subplot fir  
